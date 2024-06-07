@@ -1,9 +1,14 @@
-let humanScore = 0
+let playerScore = 0
 let computerScore = 0
+
+const result = document.querySelector("#result")
+result.textContent = (`${playerScore} ${computerScore}`)
+
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
 
 function getComputerChoice() {
     let a = Math.floor(Math.random() * 3)
@@ -23,51 +28,61 @@ function getComputerChoice() {
     return b
 }
 
-function getHumanChoice() {
-    choice = prompt("Rock, Paper or Scissors?");
-    if (!(choice.toLowerCase() == "rock" || 
-    choice.toLowerCase() == "paper" || 
-    choice.toLowerCase() == "scissors")
-    ) {
-        alert("Please pick Rock, Paper or Scissors")
-        getHumanChoice()
-    }
-    // else alert("You picked " + choice)
-    console.log("You picked " + capitalizeFirstLetter(choice) + ".")
-    return(choice)
-}
 
-function playRound(humanChoice, computerChoice){
-    if (humanChoice == computerChoice){
+const buttons = document.querySelectorAll("button")
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        playRound(button.id, getComputerChoice())
+    })
+})
+
+
+// function getPlayerChoice() {
+//     choice = prompt("Rock, Paper or Scissors?");
+//     if (!(choice.toLowerCase() == "rock"
+//     || choice.toLowerCase() == "paper"
+//     || choice.toLowerCase() == "scissors")
+//     ) {
+//         alert("Please pick Rock, Paper or Scissors")
+//         getPlayerChoice()
+//     }
+//     alert("You picked " + capitalizeFirstLetter(choice) + ".")
+//     return(choice)
+// }
+
+function playRound(playerChoice, computerChoice){
+    if (playerChoice == computerChoice){
         console.log("Tie.")
     }
-    else if (humanChoice == "rock" && computerChoice == "scissors" ||
-        humanChoice == "paper" && computerChoice == "rock" ||
-        humanChoice == "scissors" && computerChoice == "paper"
+    else if (playerChoice == "rock" && computerChoice == "scissors"
+    || playerChoice == "paper" && computerChoice == "rock"
+    || playerChoice == "scissors" && computerChoice == "paper"
     ) {
-        humanScore++
-        console.log("You won!" + capitalizeFirstLetter(humanChoice) + " beats " + capitalizeFirstLetter(computerChoice) + ".")
+        playerScore++
+        console.log("You won!" + capitalizeFirstLetter(playerChoice) + " beats " + capitalizeFirstLetter(computerChoice) + ".")
     }
     else {
         computerScore++
-        console.log("You lose!" + capitalizeFirstLetter(computerChoice) + " beats " + capitalizeFirstLetter(humanChoice) + ".")
+        console.log("You lose!" + capitalizeFirstLetter(computerChoice) + " beats " + capitalizeFirstLetter(playerChoice) + ".")
     }
-    console.log(humanScore, computerScore)
+    console.log(playerScore, computerScore)
 }
 
-function playGame() {
-    for (let i = 0; humanScore < 3 && computerScore < 3; i++) {
-        const humanSelection = getHumanChoice()
-        const computerSelection = getComputerChoice()
-        playRound(humanSelection, computerSelection);
-        if (humanScore == 3) {
-            console.log("You won with the score of" + humanScore + " " + computerScore + ".")
-        }
-        else if (computerScore == 3) {
-            console.log("You lost with the score of " + humanScore + " " + computerScore + ".")
-        }
-    }
 
-}
 
-playGame()
+// function playGame() {
+//     for (let i = 0; playerScore < 3 && computerScore < 3; i++) {
+//         const playerSelection = getPlayerChoice()
+//         const computerSelection = getComputerChoice()
+//         playRound(playerSelection, computerSelection);
+//         if (playerScore == 3) {
+//             alert("You won with the score of" + playerScore + " " + computerScore + ".")
+//         }
+//         else if (computerScore == 3) {
+//             alert("You lost with the score of " + playerScore + " " + computerScore + ".")
+//         }
+//     }
+
+// }
+
+// playGame()

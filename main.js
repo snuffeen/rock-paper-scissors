@@ -1,8 +1,17 @@
 let playerScore = 0
 let computerScore = 0
 
-const result = document.querySelector("#result")
-result.textContent = (`${playerScore} ${computerScore}`)
+const scoreboard = document.querySelector("#scoreboard")
+scoreboard.textContent = (`${playerScore} ${computerScore}`)
+
+const playerChoiceDisplay = document.querySelector("#player-choice-display")
+playerChoiceDisplay.textContent = ""
+
+const computerChoiceDisplay = document.querySelector("#computer-choice-display")
+computerChoiceDisplay.textContent = ""
+
+const gameInfo = document.querySelector("#game-info")
+gameInfo.textContent = "Make a choice!"
 
 
 function capitalizeFirstLetter(string) {
@@ -12,20 +21,19 @@ function capitalizeFirstLetter(string) {
 
 function getComputerChoice() {
     let a = Math.floor(Math.random() * 3)
-    let b = ""
+    let result = ""
     switch (a){
         case 0:
-            b = "rock"
+            result = "rock"
             break
         case 1:
-            b = "paper"
+            result = "paper"
             break
         case 2:
-            b = "scissors"
+            result = "scissors"
             break
     }
-    console.log("Your opponent picked " + capitalizeFirstLetter(b)+ ".")
-    return b
+    return result
 }
 
 
@@ -37,37 +45,31 @@ buttons.forEach((button) => {
 })
 
 
-// function getPlayerChoice() {
-//     choice = prompt("Rock, Paper or Scissors?");
-//     if (!(choice.toLowerCase() == "rock"
-//     || choice.toLowerCase() == "paper"
-//     || choice.toLowerCase() == "scissors")
-//     ) {
-//         alert("Please pick Rock, Paper or Scissors")
-//         getPlayerChoice()
-//     }
-//     alert("You picked " + capitalizeFirstLetter(choice) + ".")
-//     return(choice)
-// }
-
 function playRound(playerChoice, computerChoice){
+    playerChoiceDisplay.textContent = `You picked ${playerChoice}.`
+    computerChoiceDisplay.textContent = `Your opponent picked ${computerChoice}.`
     if (playerChoice == computerChoice){
-        console.log("Tie.")
+        gameInfo.textContent = (
+            `You both picked ${playerChoice}. It's a tie.`
+        )
     }
     else if (playerChoice == "rock" && computerChoice == "scissors"
     || playerChoice == "paper" && computerChoice == "rock"
     || playerChoice == "scissors" && computerChoice == "paper"
-    ) {
-        playerScore++
-        console.log("You won!" + capitalizeFirstLetter(playerChoice) + " beats " + capitalizeFirstLetter(computerChoice) + ".")
-    }
-    else {
-        computerScore++
-        console.log("You lose!" + capitalizeFirstLetter(computerChoice) + " beats " + capitalizeFirstLetter(playerChoice) + ".")
-    }
-    console.log(playerScore, computerScore)
+) {
+    playerScore++
+    gameInfo.textContent = (
+        `${capitalizeFirstLetter(playerChoice)} beats ${computerChoice}! You got a point!`
+)
 }
-
+else {
+    computerScore++
+    gameInfo.textContent = (
+        `${capitalizeFirstLetter(computerChoice)} beats ${playerChoice}! Your opponent got a point.`
+    )
+}
+scoreboard.textContent = (`${playerScore} ${computerScore}`)
+}
 
 
 // function playGame() {

@@ -68,23 +68,24 @@ else {
         `${capitalizeFirstLetter(computerChoice)} beats ${playerChoice}! Your opponent got a point.`
     )
 }
+
 scoreboard.textContent = (`${playerScore} ${computerScore}`)
+
+bestOfFive()
 }
 
 
-// function playGame() {
-//     for (let i = 0; playerScore < 3 && computerScore < 3; i++) {
-//         const playerSelection = getPlayerChoice()
-//         const computerSelection = getComputerChoice()
-//         playRound(playerSelection, computerSelection);
-//         if (playerScore == 3) {
-//             alert("You won with the score of" + playerScore + " " + computerScore + ".")
-//         }
-//         else if (computerScore == 3) {
-//             alert("You lost with the score of " + playerScore + " " + computerScore + ".")
-//         }
-//     }
-
-// }
-
-// playGame()
+function bestOfFive() {
+    if (playerScore == 3) {
+        alert(`You won!`)
+        gameInfo.textContent = `You won!`
+        playerScore = 0
+        computerScore = 0
+    }
+    else if (computerScore == 3) {
+        alert(`You lost!`)
+        gameInfo.textContent = `You lost!`
+        playerScore = 0
+        computerScore = 0
+    }
+}
